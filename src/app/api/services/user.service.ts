@@ -24,12 +24,15 @@ export class UserService {
     return of(user);
   }
 
-  updateUser(oldUser: User, user: User): Observable<User> {
+  updateUser(oldUser: User, user: Partial<User>): Observable<User> {
     const users = this.localStorageService.getItems(this.USERS_KEY) || [];
     const index = users.findIndex(u => u.username === oldUser.username);
-    users[index] = user;
+    users[index] = {
+      ...users[index],
+      ...user
+    };
     this.localStorageService.setItem(this.USERS_KEY, users);
-    return of(user);
+    return of(users[index]);
   }
 
   deleteUser(user: User): Observable<string> {

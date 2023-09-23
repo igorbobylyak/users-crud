@@ -3,7 +3,7 @@ import { TriggerDialogService } from '../../core/services/trigger-dialog.service
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserType } from 'src/app/api/models/user';
 import { ButtonConfig } from 'src/app/core/comps/button/button.component';
-import { get, omit } from 'lodash-es';
+import { get, isEqual, omit, omitBy } from 'lodash-es';
 import { DialogData, DialogMode } from 'src/app/core/services/trigger-dialog.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserService } from 'src/app/api/services/user.service';
@@ -52,7 +52,7 @@ export class DialogComponent implements OnInit {
     label: 'Create',
     backgroundColor: 'var(--unnamed-color-2e8ff0)',
     color: 'var(--unnamed-color-ffffff)',
-    boxShadow: 'box-shadow: 0px 5px 8px var(--unnamed-color-2e8ff0)',
+    boxShadow: '0px 5px 8px var(--unnamed-color-2e8ff0)',
     action: this.handleCreate.bind(this)
   };
 
@@ -60,7 +60,7 @@ export class DialogComponent implements OnInit {
     label: 'Save',
     backgroundColor: 'var(--unnamed-color-2e8ff0)',
     color: 'var(--unnamed-color-ffffff)',
-    boxShadow: 'box-shadow: 0px 5px 8px var(--unnamed-color-2e8ff0)',
+    boxShadow: '0px 5px 8px var(--unnamed-color-2e8ff0)',
     action: this.handleSave.bind(this)
   };
 
@@ -90,8 +90,10 @@ export class DialogComponent implements OnInit {
         this.form.reset();
         if (value) {
           this.dialogData = value;
-          this.removeValidators(); // remove required validators from passwords as passwords are not returned and fields can be updated without passwords
-          this.setFormValues(value.user);
+
+          if (value.mode === this.Edit) {
+            this.setFormValues(value.user);
+          }
         }
 
         this.cd.detectChanges();
@@ -110,17 +112,12 @@ export class DialogComponent implements OnInit {
     });
   }
 
-  private removeValidators() {
-    this.form.controls.password.removeValidators(Validators.required);
-    this.form.controls.repeatPassword.removeValidators(Validators.required);
-    this.form.updateValueAndValidity();
-  }
-
   private setFormValues(user: User) {
     for (const key of Object.keys(this.form.controls)) {
-      // passwords are not set and should not be returned at all since user should not know about this info
-      // insecure
-      if (key === 'repeatPassword' || key === 'password') continue;
+      if (key === 'repeatPassword') {
+        this.form.get('repeatPassword')?.setValue(user.password, { emitEvent: false });
+        continue;
+      }
 
       this.form.get(key)?.setValue(get(user, key), { emitEvent: false });
     }
@@ -145,10 +142,13 @@ export class DialogComponent implements OnInit {
   }
 
   handleSave() {
-    const formValue = this.form.value;
-    const updatedUser: User = omit(formValue, ['repeatPassword']) as User;
+    const original = this.dialogData.user;
+    const edited = omit(this.form.value, ['repeatPassword']);
+    const changes = omitBy(edited, (value, key) => isEqual(value, original[key as keyof User]));
+    
+    if (!changes) return;
 
-    this.usersService.updateUser(this.dialogData.user, updatedUser)
+    this.usersService.updateUser(this.dialogData.user, changes)
       .pipe(
         take(1)
       ).subscribe((value: User) => {

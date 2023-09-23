@@ -13,7 +13,7 @@ export class NotFoundComponent {
     label: 'Navigate Home',
     backgroundColor: 'var(--unnamed-color-2e8ff0)',
     color: 'var(--unnamed-color-ffffff)',
-    boxShadow: 'box-shadow: 0px 5px 8px var(--unnamed-color-2e8ff0)',
+    boxShadow: '0px 5px 8px var(--unnamed-color-2e8ff0)',
     action: this.goToHome.bind(this)
   }
 

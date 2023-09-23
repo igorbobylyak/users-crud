@@ -4,7 +4,7 @@ import { User } from 'src/app/api/models/user';
 
 export interface DialogData {
   mode: DialogMode;
-  user?: User
+  user?: User;
   callback: () => void;
 }
 

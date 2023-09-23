@@ -21,4 +21,8 @@ export class ButtonComponent {
   getButtonBg(): string {
     return this.disabled ? 'var(--unnamed-color-ccd2e2)' : this.config.backgroundColor;
   }
+
+  getBoxShadow() {
+    return this.disabled ? '' : this.config.boxShadow;
+  }
 }

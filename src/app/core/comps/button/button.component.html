@@ -2,6 +2,6 @@
         [disabled]="disabled"
         [style.background-color]="getButtonBg()"
         [style.color]="config.color"
-        [style.boxShadow]="config.boxShadow">
+        [style.boxShadow]="getBoxShadow()">
     {{ config.label }}
 </button>
