@@ -114,12 +114,16 @@ export class DialogComponent implements OnInit {
 
   private setFormValues(user: User) {
     for (const key of Object.keys(this.form.controls)) {
+      const control = this.form.get(key);
+
       if (key === 'repeatPassword') {
-        this.form.get('repeatPassword')?.setValue(user.password, { emitEvent: false });
+        control?.setValue(user.password, { emitEvent: false });
+        control?.setErrors(null);
         continue;
       }
 
-      this.form.get(key)?.setValue(get(user, key), { emitEvent: false });
+      control?.setValue(get(user, key), { emitEvent: false });
+      control?.setErrors(null);
     }
   }
 

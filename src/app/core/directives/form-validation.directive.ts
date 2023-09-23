@@ -3,6 +3,7 @@ import { AbstractControl, AsyncValidator, NG_ASYNC_VALIDATORS, ValidationErrors 
 import { isNil } from '../utils/isNil';
 import { Observable, catchError, map, of } from 'rxjs';
 import { UserService } from 'src/app/api/services/user.service';
+import { User } from 'src/app/api/models/user';
 
 export enum ValidationType {
   EMAIL = 'email',
@@ -23,6 +24,7 @@ export enum ValidationType {
 })
 export class FormValidationDirective implements AsyncValidator {
   @Input() validationType: ValidationType;
+  @Input() user?: User;
 
   constructor(
     private usersService: UserService
@@ -36,6 +38,10 @@ export class FormValidationDirective implements AsyncValidator {
     } else if (this.validationType === ValidationType.REPEAT_PASSWORD) {
       return validateRepeatPassword(control.parent.get('password'), control.value);
     } else if (this.validationType === ValidationType.USERNAME) {
+      if (this.user && this.user.username === control.value) {
+        return of(null);
+      }
+
       return this.usersService.checkUsernameUniqueness(control.value).pipe(
         map((isUnique) => (isUnique ? null : { username: true })),
         catchError(() => of(null))

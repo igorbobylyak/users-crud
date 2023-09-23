@@ -13,6 +13,7 @@
             <label for="username">Username*</label>
             <input appFormValidation 
                    [validationType]="USERNAME"
+                   [user]="dialogData.user"
                    [ngClass]="{'input-error': hasError('username', 'username')}"
                    type="text" 
                    id="username" 
