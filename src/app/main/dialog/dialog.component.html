@@ -1,0 +1,103 @@
+<div class="dialog">
+    <div class="dialog-header">
+        <h2>{{ dialogData.mode === Create ? 'Create User' : dialogData.user.firstName + ' ' + dialogData.user.lastName }}</h2>
+        <button class="dialog-close-button" (click)="closeDialog()">
+          <img src="assets/icons/close.svg" alt="close icon" width="24" height="24">
+        </button>
+    </div>
+  
+    <div class="dialog-body">
+      <div class="form-container">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="username">Username*</label>
+            <input appFormValidation 
+                   [validationType]="USERNAME"
+                   [ngClass]="{'input-error': hasError('username', 'username')}"
+                   type="text" 
+                   id="username" 
+                   formControlName="username">
+            <div *ngIf="hasError('username', 'username')" class="form-error">
+              Username already in use
+            </div>
+          </div>
+  
+          <div class="form-group">
+            <label for="firstName">First Name*</label>
+            <input type="text" id="firstName" formControlName="firstName">
+          </div>
+  
+          <div class="form-group">
+            <label for="lastName">Last Name*</label>
+            <input type="text" id="lastName" formControlName="lastName">
+          </div>
+  
+          <div class="form-group">
+            <label for="email">Email*</label>
+            <input appFormValidation
+                   [validationType]="EMAIL"
+                   [ngClass]="{'input-error': hasError('email', 'email')}"
+                   type="email" 
+                   id="email" 
+                   formControlName="email">
+            <div *ngIf="hasError('email', 'email')" class="form-error">
+              Please enter a valid email address.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="type">Type*</label>
+            <select id="type" formControlName="type">
+              <option [value]="Admin">Admin</option>
+              <option [value]="Driver">Driver</option>
+            </select>
+          </div>
+  
+          <div class="form-group">
+            <label for="password">Password*</label>
+            <input appFormValidation
+                   [validationType]="PASSWORD"
+                   [ngClass]="{'input-error': hasError('password', 'password')}"
+                   type="password" 
+                   id="password" 
+                   formControlName="password">
+            <div *ngIf="hasError('password', 'password')" class="form-error">
+              Password must be at least 8 characters with at least one letter and one number.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="repeat-password">Repeat Password*</label>
+            <input appFormValidation
+                   [validationType]="REPEAT_PASSWORD"
+                   [ngClass]="{'input-error': hasError('repeatPassword', 'repeatPassword')}"
+                   type="password" 
+                   id="repeat-password" 
+                   formControlName="repeatPassword">
+            <div *ngIf="hasError('repeatPassword', 'repeatPassword')" class="form-error">
+              Passwords do not match.
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <div class="dialog-footer">
+     <app-button *ngIf="dialogData.mode === Edit" 
+                 [config]="deleteButton"
+                 (click)="handleDelete()">
+     </app-button>
+
+     <app-button *ngIf="dialogData.mode === Create" 
+                [config]="createButton"
+                [disabled]="isInvalid()">
+     </app-button>
+
+     <app-button *ngIf="dialogData.mode === Edit" 
+                [config]="saveButton"
+                [disabled]="isInvalid()">
+     </app-button>
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,7 @@
+<button (click)="config.action()"
+        [disabled]="disabled"
+        [style.background-color]="getButtonBg()"
+        [style.color]="config.color"
+        [style.boxShadow]="config.boxShadow">
+    {{ config.label }}
+</button>

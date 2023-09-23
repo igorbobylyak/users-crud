@@ -1,0 +1,19 @@
+<app-popup *ngIf="!!popupConfig" 
+           (click)="closePopup()"
+           [config]="popupConfig"
+           [@fadeInOut]>
+</app-popup>
+
+<app-button [config]="buttonConfig"></app-button>
+
+<div class="users">
+    <app-simple-table (rowClickedEvent)="handleEditUser($event)"
+                      [config]="tableConfig"
+                      class="users-left">
+    </app-simple-table>
+    
+    <app-dialog *ngIf="triggerDialogService.data$ | async"
+                [@fadeInOut]
+                class="users-right">
+    </app-dialog>
+</div>

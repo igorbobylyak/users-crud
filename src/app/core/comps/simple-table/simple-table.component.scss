@@ -1,0 +1,36 @@
+.table-container {
+    max-height: 99%;
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 2px;
+    margin: 0 auto;
+
+    thead {
+        background: var(--unnamed-color-ffffff);
+        position: sticky;
+        top: 0;
+    }
+
+    &-header {
+        height: 56px;
+        font-size: 13px;
+        font-weight: var(--unnamed-font-weight-bold);
+        text-transform: uppercase;
+        color: var(--unnamed-color-a4a4b5);
+    }
+
+    &-row {
+        height: 56px;
+        background: var(--unnamed-color-f4f5f8);
+        text-align: center;
+    }
+
+    &-row:hover {
+        cursor: pointer;
+    }
+}

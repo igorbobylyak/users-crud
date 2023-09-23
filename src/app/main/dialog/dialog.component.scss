@@ -1,0 +1,113 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-error {
+    color: var(--unnamed-color-ef7da0);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.input-error {
+    border: 1px solid var(--unnamed-color-ef7da0);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+  
+input,
+select {
+    width: calc(100% - 16px);
+    padding: 12px 8px;
+    background: var(--unnamed-color-f3f6f9);
+    color: var(--unnamed-color-3f4254);
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: var(--unnamed-font-style-normal);
+    letter-spacing: 0px;
+}
+
+input[type="email"] {
+    width: calc(100% - 55px);
+    background-size: 25px;
+    padding-left: 45px;
+    background-image: url("../../../assets/icons/email.svg");
+    background-repeat: no-repeat;
+    background-position: 15px center;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+}
+
+select {
+    width: 100%;
+    appearance: none;
+    padding-right: 30px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23343a40' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath d='M2.854 4.146a.5.5 0 01.708 0L8 8.293l4.146-4.147a.5.5 0 11.708.708l-4.5 4.5a.5.5 0 01-.708 0l-4.5-4.5a.5.5 0 010-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+}
+
+.dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: var(--unnamed-color-ffffff);
+    border-radius: 6px;
+    box-shadow: 0px 0px 30px #523F690D;
+
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+
+    &-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 15px;
+    }
+
+    &-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        position: sticky;
+        z-index: 2;
+    }
+
+    &-close-button {
+        background: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        border-radius: 10px;
+    }
+
+    &-close-button:hover {
+        cursor: pointer;
+        background: var(--unnamed-color-eef0f8);
+    }
+}
