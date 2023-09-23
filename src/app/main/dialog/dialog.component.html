@@ -82,21 +82,21 @@
       </div>
     </div>
   
-    <div class="dialog-footer">
-     <app-button *ngIf="dialogData.mode === Edit" 
-                 [config]="deleteButton"
-                 (click)="handleDelete()">
-     </app-button>
+    <div class="dialog-footer" [style.justify-content]="dialogData.mode === Create ? 'center' : 'space-between'">
+      <app-button *ngIf="dialogData.mode === Edit" 
+                  [config]="deleteButton"
+                  (click)="handleDelete()">
+      </app-button>
 
-     <app-button *ngIf="dialogData.mode === Create" 
-                [config]="createButton"
-                [disabled]="isInvalid()">
-     </app-button>
+      <app-button *ngIf="dialogData.mode === Create" 
+                  [config]="createButton"
+                  [disabled]="isInvalid()">
+      </app-button>
 
-     <app-button *ngIf="dialogData.mode === Edit" 
-                [config]="saveButton"
-                [disabled]="isInvalid()">
-     </app-button>
+      <app-button *ngIf="dialogData.mode === Edit" 
+                  [config]="saveButton"
+                  [disabled]="isInvalid()">
+      </app-button>
     </div>
   </div>
   
