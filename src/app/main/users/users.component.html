@@ -1,13 +1,17 @@
-<app-button [config]="buttonConfig"></app-button>
+<div class="users-container">
+    <div class="users-create-button">
+        <app-button [config]="buttonConfig"></app-button>
+    </div>
 
-<div class="users">
-    <app-simple-table (rowClickedEvent)="handleEditUser($event)"
-                      [config]="tableConfig"
-                      class="users-left">
-    </app-simple-table>
-    
-    <app-dialog *ngIf="triggerDialogService.data$ | async"
-                [@fadeInOut]
-                class="users-right">
-    </app-dialog>
+    <div class="users">
+        <app-simple-table (rowClickedEvent)="handleEditUser($event)"
+                          [config]="tableConfig"
+                          class="users-left">
+        </app-simple-table>
+
+        <app-dialog *ngIf="triggerDialogService.data$ | async"
+                    [@fadeInOut]
+                    class="users-right">
+        </app-dialog>
+    </div>
 </div>
