@@ -87,9 +87,10 @@ export class DialogComponent implements OnInit {
       .pipe(
         untilDestroyed(this)
       ).subscribe((value: DialogData) => {
+        this.form.reset();
         if (value) {
           this.dialogData = value;
-          this.isCreate = this.dialogData.mode === this.Create;
+          this.removeValidators(); // remove required validators from passwords as passwords are not returned and fields can be updated without passwords
           this.setFormValues(value.user);
         }
 
@@ -98,17 +99,21 @@ export class DialogComponent implements OnInit {
   }
 
   private createForm() {
-    const requiredValidator = this.isCreate ? [Validators.required] : [];
-
     this.form = this.fb.group({
-      username: new FormControl<string>(null, requiredValidator),
-      firstName: new FormControl<string>(null, requiredValidator),
-      lastName: new FormControl<string>(null, requiredValidator),
-      email: new FormControl<string>(null, requiredValidator),
-      password: new FormControl<string>(null, requiredValidator),
-      repeatPassword: new FormControl<string>(null, requiredValidator),
-      type: new FormControl<UserType>(null, requiredValidator)
+      username: new FormControl<string>(null, [Validators.required]),
+      firstName: new FormControl<string>(null, [Validators.required]),
+      lastName: new FormControl<string>(null, [Validators.required]),
+      email: new FormControl<string>(null, [Validators.required]),
+      password: new FormControl<string>(null, Validators.required),
+      repeatPassword: new FormControl<string>(null, Validators.required),
+      type: new FormControl<UserType>(null, [Validators.required])
     });
+  }
+
+  private removeValidators() {
+    this.form.controls.password.removeValidators(Validators.required);
+    this.form.controls.repeatPassword.removeValidators(Validators.required);
+    this.form.updateValueAndValidity();
   }
 
   private setFormValues(user: User) {
@@ -165,15 +170,19 @@ export class DialogComponent implements OnInit {
   }
 
   isInvalid() {
-    const {username, email, password, repeatPassword} = this.form.controls;
-    console.log(username.valid, password.value, password.valid)
     return !this.form.valid;
   }
 
-  hasError(controlName: string, errorName: string) {
+  hasError(controlName: string, errorName: string | string[]) {
     if (this.form) {
-      const hasError = this.form.get(controlName)?.hasError(errorName);
-      return hasError;
+      if (Array.isArray(errorName)) {
+        const hasError = errorName.reduce((acc: boolean, currErr: string) => {
+          return acc = this.form.get(controlName)?.hasError(currErr);
+        }, false);
+        return hasError;
+      }
+
+      return this.form.get(controlName)?.hasError(errorName);
     }
   
     return false;

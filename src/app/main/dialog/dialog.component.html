@@ -57,12 +57,16 @@
             <label for="password">Password*</label>
             <input appFormValidation
                    [validationType]="PASSWORD"
-                   [ngClass]="{'input-error': hasError('password', 'password')}"
+                   [ngClass]="{'input-error': hasError('password', ['password', 'mismatch'])}"
                    type="password" 
                    id="password" 
                    formControlName="password">
             <div *ngIf="hasError('password', 'password')" class="form-error">
               Password must be at least 8 characters with at least one letter and one number.
+            </div>
+
+            <div *ngIf="hasError('password', 'mismatch')" class="form-error">
+              Passwords do not match
             </div>
           </div>
 

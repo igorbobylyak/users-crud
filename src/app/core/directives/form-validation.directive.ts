@@ -30,22 +30,11 @@ export class FormValidationDirective implements AsyncValidator {
 
   validate(control: AbstractControl): Observable<ValidationErrors> | null {
     if (this.validationType === ValidationType.EMAIL) {
-      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-      const match = emailPattern.test(control.value);
-      return of(isNil(control.value) || match ? null : { email: true });
+      return validateEmail(control.value);
     } else if (this.validationType === ValidationType.PASSWORD) {
-      const password = control.value;
-      const hasNumber = /\d/.test(password);
-      const hasLetter = /[a-zA-Z]/.test(password);
-      const hasMinLength = password?.length >= 8;
-      return of(isNil(password) || (hasNumber && hasLetter && hasMinLength) ? null : { password: true });
+      return validatePassword(control.value, control.parent.get('repeatPassword'));
     } else if (this.validationType === ValidationType.REPEAT_PASSWORD) {
-      const formGroup = control.parent;
-      if (formGroup) {
-        const password = formGroup.get('password').value;
-        const repeatPassword = control.value;
-        return of((isNil(password) || isNil(repeatPassword)) || password === repeatPassword ? null : { repeatPassword: true });
-      }
+      return validateRepeatPassword(control.parent.get('password'), control.value);
     } else if (this.validationType === ValidationType.USERNAME) {
       return this.usersService.checkUsernameUniqueness(control.value).pipe(
         map((isUnique) => (isUnique ? null : { username: true })),
@@ -55,4 +44,33 @@ export class FormValidationDirective implements AsyncValidator {
 
     return of(null);
   }
+}
+
+function validateEmail(email: string): Observable<ValidationErrors | null> {
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const match = emailPattern.test(email);
+  return of(isNil(email) || match ? null : { email: true });
+}
+
+function validatePassword(password: string, repeatControl: AbstractControl): Observable<ValidationErrors | null> {
+  const hasNumber = /\d/.test(password);
+  const hasLetter = /[a-zA-Z]/.test(password);
+  const hasMinLength = password?.length >= 8;
+  const matchPattern = hasNumber && hasLetter && hasMinLength;
+  if (matchPattern) {
+    const equal = password === repeatControl.value;
+    if (equal) {
+      repeatControl.setErrors(null);
+    }
+    return of(isNil(repeatControl.value) || equal ? null : { mismatch: true });
+  }
+  return of(matchPattern ? null : { password: true });
+}
+
+function validateRepeatPassword(passwordControl: AbstractControl, repeatPassword: string): Observable<ValidationErrors | null> {
+  const equal = passwordControl.value === repeatPassword;
+  if (equal) {
+    passwordControl.setErrors(null);
+  }
+  return of(equal ? null : { repeatPassword: true });
 }
