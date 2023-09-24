@@ -1,7 +1,7 @@
-<div class="table-container">
+<div class="table__container">
     <table class="table">
         <thead>
-            <tr class="table-header">
+            <tr class="table__header">
                 <th *ngFor="let header of config.headers">{{ header }}</th>
             </tr>
         </thead>
@@ -9,7 +9,7 @@
         <tbody>
             <tr *ngFor="let item of config.data"
                 (click)="handleRowClicked(item)"
-                class="table-row">
+                class="table__row">
                 <td *ngFor="let key of getItemKeys(item)">{{ item[key] }}</td>
             </tr>
         </tbody>

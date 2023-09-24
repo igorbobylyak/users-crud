@@ -1,15 +1,15 @@
 <div class="dialog">
-    <div class="dialog-header">
+    <div class="dialog__header">
         <h2>{{ dialogData.mode === Create ? 'Create User' : dialogData.user.firstName + ' ' + dialogData.user.lastName }}</h2>
-        <button class="dialog-close-button" (click)="closeDialog()">
+        <button class="dialog__close-button" (click)="closeDialog()">
           <img src="assets/icons/close.svg" alt="close icon" width="24" height="24">
         </button>
     </div>
   
-    <div class="dialog-body">
-      <div class="form-container">
+    <div class="dialog__body">
+      <div class="form__container">
         <form [formGroup]="form">
-          <div class="form-group">
+          <div class="form__group">
             <label for="username">Username*</label>
             <input appFormValidation 
                    [validationType]="USERNAME"
@@ -18,22 +18,22 @@
                    type="text" 
                    id="username" 
                    formControlName="username">
-            <div *ngIf="hasError('username', 'username')" class="form-error">
+            <div *ngIf="hasError('username', 'username')" class="form__error">
               Username already in use
             </div>
           </div>
   
-          <div class="form-group">
+          <div class="form__group">
             <label for="firstName">First Name*</label>
             <input type="text" id="firstName" formControlName="firstName">
           </div>
   
-          <div class="form-group">
+          <div class="form__group">
             <label for="lastName">Last Name*</label>
             <input type="text" id="lastName" formControlName="lastName">
           </div>
   
-          <div class="form-group">
+          <div class="form__group">
             <label for="email">Email*</label>
             <input appFormValidation
                    [validationType]="EMAIL"
@@ -41,12 +41,12 @@
                    type="email" 
                    id="email" 
                    formControlName="email">
-            <div *ngIf="hasError('email', 'email')" class="form-error">
+            <div *ngIf="hasError('email', 'email')" class="form__error">
               Please enter a valid email address.
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form__group">
             <label for="type">Type*</label>
             <select id="type" formControlName="type">
               <option [value]="Admin">Admin</option>
@@ -54,7 +54,7 @@
             </select>
           </div>
   
-          <div class="form-group">
+          <div class="form__group">
             <label for="password">Password*</label>
             <input appFormValidation
                    [validationType]="PASSWORD"
@@ -62,16 +62,16 @@
                    type="password" 
                    id="password" 
                    formControlName="password">
-            <div *ngIf="hasError('password', 'password')" class="form-error">
+            <div *ngIf="hasError('password', 'password')" class="form__error">
               Password must be at least 8 characters with at least one letter and one number.
             </div>
 
-            <div *ngIf="hasError('password', 'mismatch')" class="form-error">
+            <div *ngIf="hasError('password', 'mismatch')" class="form__error">
               Passwords do not match
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form__group">
             <label for="repeat-password">Repeat Password*</label>
             <input appFormValidation
                    [validationType]="REPEAT_PASSWORD"
@@ -79,7 +79,7 @@
                    type="password" 
                    id="repeat-password" 
                    formControlName="repeatPassword">
-            <div *ngIf="hasError('repeatPassword', 'repeatPassword')" class="form-error">
+            <div *ngIf="hasError('repeatPassword', 'repeatPassword')" class="form__error">
               Passwords do not match.
             </div>
           </div>
@@ -87,7 +87,7 @@
       </div>
     </div>
   
-    <div class="dialog-footer" [style.justify-content]="dialogData.mode === Create ? 'center' : 'space-between'">
+    <div class="dialog__footer" [style.justify-content]="dialogData.mode === Create ? 'center' : 'space-between'">
       <app-button *ngIf="dialogData.mode === Edit" 
                   [config]="deleteButton"
                   (click)="handleDelete()">

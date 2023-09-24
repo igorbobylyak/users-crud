@@ -7,29 +7,29 @@
     padding-left: 26px;
     border-radius: 6px;
     position: absolute;
-    top: 20px;
+    top: 20px;   
+}
 
-    &-title {
-        font-size: 13px;
-    }
+.popup__text {
+    font-size: 13px;
+}
 
-    &-right {
-        right: 20px;
-    }
+.popup__success {
+    background: var(--unnamed-color-66bb6a);
+    box-shadow: 0px 10px 15px #4CAF505C;
+}
 
-    &-left {
-        left: 20px;
-    }
+.popup__error {
+    background: var(--unnamed-color-ef7da0);
+    box-shadow: 0px 10px 15px #EF7DA05C;
+}
 
-    &-success {
-        background: var(--unnamed-color-66bb6a);
-        box-shadow: 0px 10px 15px #4CAF505C;
-    }
+.popup__right {
+    right: 20px;
+}
 
-    &-error {
-        background: var(--unnamed-color-ef7da0);
-        box-shadow: 0px 10px 15px #EF7DA05C;
-    }
+.popup__left {
+    left: 20px;
 }
 
 .popup:hover {

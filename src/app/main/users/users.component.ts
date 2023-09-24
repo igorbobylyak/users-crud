@@ -7,6 +7,7 @@ import { ButtonConfig } from 'src/app/core/comps/button/button.component';
 import { SimpleTableConfig } from 'src/app/core/comps/simple-table/simple-table.component';
 import { DialogMode } from 'src/app/core/services/trigger-dialog.service';
 import { TriggerDialogService } from 'src/app/core/services/trigger-dialog.service';
+import { TriggerPopupService } from 'src/app/core/services/trigger-popup.service';
 
 @UntilDestroy()
 @Component({
@@ -30,6 +31,7 @@ export class UsersComponent implements OnInit {
 
   constructor(
     public triggerDialogService: TriggerDialogService,
+    private triggerPopupService: TriggerPopupService,
     private usersService: UserService
   ) {}
 
@@ -44,7 +46,7 @@ export class UsersComponent implements OnInit {
       ).subscribe((value: User[]) => {
         this.users = value || [];
         this.setTableConfig(this.users);
-      });
+      }, err => this.triggerPopupService.showError(err));
   }
 
   handleEditUser(user: User) {

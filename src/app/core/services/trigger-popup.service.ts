@@ -16,7 +16,7 @@ export class TriggerPopupService {
   showSuccess(text: string, timeout: number = 3000) {
     this.messageSubject.next({
       text,
-      classes: ['popup-success', 'popup-right'],
+      classes: ['popup__success', 'popup__right'],
       timeout
     });
   }
@@ -24,7 +24,7 @@ export class TriggerPopupService {
   showError(err: any, timeout: number = 3000) {
     this.messageSubject.next({
       text: this.getErrorMessage(err),
-      classes: ['popup-error', 'popup-left'],
+      classes: ['popup__error', 'popup__left'],
       timeout
     });
   }

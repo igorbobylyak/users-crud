@@ -1,4 +1,4 @@
-.table-container {
+.table__container {
     height: 100%;
     overflow-y: auto;
     background: var(--unnamed-color-ffffff);
@@ -19,22 +19,22 @@
         position: sticky;
         top: 0;
     }
+}
 
-    &-header {
-        height: 56px;
-        font-size: 13px;
-        font-weight: var(--unnamed-font-weight-bold);
-        text-transform: uppercase;
-        color: var(--unnamed-color-a4a4b5);
-    }
+.table__header {
+    height: 56px;
+    font-size: 13px;
+    font-weight: var(--unnamed-font-weight-bold);
+    text-transform: uppercase;
+    color: var(--unnamed-color-a4a4b5);
+}
 
-    &-row {
-        height: 56px;
-        background: var(--unnamed-color-f4f5f8);
-        text-align: center;
-    }
+.table__row {
+    height: 56px;
+    background: var(--unnamed-color-f4f5f8);
+    text-align: center;
+}
 
-    &-row:hover {
-        cursor: pointer;
-    }
+.table__row:hover {
+    cursor: pointer;
 }

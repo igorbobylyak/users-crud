@@ -1,4 +1,4 @@
-.form-container {
+.form__container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,11 +8,11 @@ form {
     width: 100%;
 }
 
-.form-group {
+.form__group {
     margin-bottom: 15px;
 }
 
-.form-error {
+.form__error {
     color: var(--unnamed-color-ef7da0);
     font-size: 13px;
     margin-top: 4px;
@@ -71,42 +71,44 @@ select {
     background: var(--unnamed-color-ffffff);
     border-radius: 6px;
     box-shadow: 0px 0px 30px #523F690D;
+}
 
-    &-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        position: sticky;
-        top: 0;
-        z-index: 2;
-    }
+.dialog__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
 
-    &-body {
-        flex: 1;
-        overflow-y: auto;
-        padding: 15px;
-    }
+    // &__body {}    
+}
 
-    &-footer {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        position: sticky;
-        z-index: 2;
-    }
+.dialog__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
 
-    &-close-button {
-        background: inherit;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: none;
-        border-radius: 10px;
-    }
+.dialog__footer {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    position: sticky;
+    z-index: 2;
+}
 
-    &-close-button:hover {
-        cursor: pointer;
-        background: var(--unnamed-color-eef0f8);
-    }
+.dialog__close-button {
+    background: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+}
+
+.dialog__close-button:hover {
+    cursor: pointer;
+    background: var(--unnamed-color-eef0f8);
 }
